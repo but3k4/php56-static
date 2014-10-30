@@ -1,0 +1,8 @@
+#
+# PHP is an HTML-embedded scripting language which attempts to make it
+# easy for developers to write dynamically generated webpages.
+#
+<IfModule prefork.c>
+  LoadModule php56_module modules/libphp56.so
+</IfModule>
+

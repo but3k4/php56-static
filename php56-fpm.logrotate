@@ -1,0 +1,9 @@
+/var/log/php56-fpm/*log {
+    missingok
+    notifempty
+    sharedscripts
+    delaycompress
+    postrotate
+	/bin/kill -SIGUSR1 `cat /run/php56-fpm/php56-fpm.pid 2>/dev/null` 2>/dev/null || true
+    endscript
+}

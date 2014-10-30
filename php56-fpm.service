@@ -1,0 +1,19 @@
+# It's not recommended to modify this file in-place, because it will be
+# overwritten during package upgrades.  If you want to customize, the
+# best way is to create a file "/etc/systemd/system/php56-fpm.service".
+
+[Unit]
+Description=The PHP FastCGI Process Manager
+After=syslog.target network.target
+
+[Service]
+Type=notify
+PIDFile=/run/php56-fpm/php56-fpm.pid
+EnvironmentFile=/etc/sysconfig/php56-fpm
+ExecStart=/usr/sbin/php56-fpm --nodaemonize
+ExecReload=/bin/kill -USR2 $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+

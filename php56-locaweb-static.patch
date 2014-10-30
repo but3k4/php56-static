@@ -1,0 +1,1004 @@
+diff -urN php-5.6.0.orig/configure php-5.6.0/configure
+--- php-5.6.0.orig/configure	2014-08-27 10:52:47.000000000 -0300
++++ php-5.6.0/configure	2014-09-09 16:25:04.000000000 -0300
+@@ -2011,7 +2011,7 @@
+ 
+ PEAR:
+ 
+-  --with-pear=DIR         Install PEAR in DIR [PREFIX/lib/php]
++  --with-pear=DIR         Install PEAR in DIR [PREFIX/lib/php56]
+   --without-pear          Do not install PEAR
+ 
+ Zend:
+@@ -10863,7 +10863,7 @@
+   test -f "$src" && $SED -e "s#\$(srcdir)#$ac_srcdir#g" -e "s#\$(builddir)#$ac_builddir#g" $src  >> Makefile.fragments
+ 
+ 
+-    SAPI_CLI_PATH=sapi/cli/php
++    SAPI_CLI_PATH=sapi/cli/php54
+ 
+ 
+   if test "program" = "program"; then
+@@ -106175,12 +106175,12 @@
+ 
+ case $libdir in
+   '${exec_prefix}/lib')
+-    libdir=$libdir/php
++    libdir=$libdir
+     ;;
+ esac
+ case $datadir in
+   '${prefix}/share')
+-    datadir=$datadir/php
++    datadir=$datadir
+     ;;
+ esac
+ 
+diff -urN php-5.6.0.orig/configure.in php-5.6.0/configure.in
+--- php-5.6.0.orig/configure.in	2014-09-09 16:22:40.000000000 -0300
++++ php-5.6.0/configure.in	2014-09-09 16:25:04.000000000 -0300
+@@ -1071,7 +1071,7 @@
+ fi
+ 
+ PHP_ARG_WITH(pear, [whether to install PEAR],
+-[  --with-pear=DIR         Install PEAR in DIR @<:@PREFIX/lib/php@:>@
++[  --with-pear=DIR         Install PEAR in DIR @<:@PREFIX/lib/php56@:>@
+   --without-pear          Do not install PEAR], DEFAULT, yes)
+ 
+ if test "$PHP_PEAR" != "no"; then
+@@ -1101,7 +1101,7 @@
+   if test "$PHP_PEAR" = "DEFAULT" || test "$PHP_PEAR" = "yes"; then
+     case $PHP_LAYOUT in
+       GNU) PEAR_INSTALLDIR=$datadir/pear;;
+-      *)   PEAR_INSTALLDIR=$libdir/php;;
++      *)   PEAR_INSTALLDIR=$libdir/php56;;
+     esac
+   fi
+ 
+@@ -1156,12 +1156,12 @@
+ 
+ case $libdir in
+   '${exec_prefix}/lib')
+-    libdir=$libdir/php
++    libdir=$libdir
+     ;;
+ esac
+ case $datadir in
+   '${prefix}/share')
+-    datadir=$datadir/php
++    datadir=$datadir
+     ;;
+ esac
+ 
+@@ -1228,7 +1228,7 @@
+ EXPANDED_DATADIR=$datadir
+ EXPANDED_PHP_CONFIG_FILE_PATH=`eval echo "$PHP_CONFIG_FILE_PATH"`
+ EXPANDED_PHP_CONFIG_FILE_SCAN_DIR=`eval echo "$PHP_CONFIG_FILE_SCAN_DIR"`
+-INCLUDE_PATH=.:$EXPANDED_PEAR_INSTALLDIR:${EXPANDED_DATADIR}/php
++INCLUDE_PATH=.:$EXPANDED_PEAR_INSTALLDIR:${EXPANDED_DATADIR}
+ 
+ exec_prefix=$old_exec_prefix
+ libdir=$old_libdir
+diff -urN php-5.6.0.orig/configure.in.fixheader php-5.6.0/configure.in.fixheader
+--- php-5.6.0.orig/configure.in.fixheader	2014-09-09 16:22:40.000000000 -0300
++++ php-5.6.0/configure.in.fixheader	2014-09-09 16:25:04.000000000 -0300
+@@ -1071,7 +1071,7 @@
+ fi
+ 
+ PHP_ARG_WITH(pear, [whether to install PEAR],
+-[  --with-pear=DIR         Install PEAR in DIR @<:@PREFIX/lib/php@:>@
++[  --with-pear=DIR         Install PEAR in DIR @<:@PREFIX/lib/php56@:>@
+   --without-pear          Do not install PEAR], DEFAULT, yes)
+ 
+ if test "$PHP_PEAR" != "no"; then
+@@ -1101,7 +1101,7 @@
+   if test "$PHP_PEAR" = "DEFAULT" || test "$PHP_PEAR" = "yes"; then
+     case $PHP_LAYOUT in
+       GNU) PEAR_INSTALLDIR=$datadir/pear;;
+-      *)   PEAR_INSTALLDIR=$libdir/php;;
++      *)   PEAR_INSTALLDIR=$libdir/php56;;
+     esac
+   fi
+ 
+@@ -1156,12 +1156,12 @@
+ 
+ case $libdir in
+   '${exec_prefix}/lib')
+-    libdir=$libdir/php
++    libdir=$libdir
+     ;;
+ esac
+ case $datadir in
+   '${prefix}/share')
+-    datadir=$datadir/php
++    datadir=$datadir
+     ;;
+ esac
+ 
+@@ -1212,7 +1212,7 @@
+     datarootdir=$prefix/share
+     ;;
+   *)
+-    datarootdir=$prefix/php
++    datarootdir=$prefix/share/php56
+     ;;
+ esac
+ 
+@@ -1228,7 +1228,7 @@
+ EXPANDED_DATADIR=$datadir
+ EXPANDED_PHP_CONFIG_FILE_PATH=`eval echo "$PHP_CONFIG_FILE_PATH"`
+ EXPANDED_PHP_CONFIG_FILE_SCAN_DIR=`eval echo "$PHP_CONFIG_FILE_SCAN_DIR"`
+-INCLUDE_PATH=.:$EXPANDED_PEAR_INSTALLDIR:${EXPANDED_DATADIR}/php
++INCLUDE_PATH=.:$EXPANDED_PEAR_INSTALLDIR:${EXPANDED_DATADIR}
+ 
+ exec_prefix=$old_exec_prefix
+ libdir=$old_libdir
+diff -urN php-5.6.0.orig/configure.in.includedir php-5.6.0/configure.in.includedir
+--- php-5.6.0.orig/configure.in.includedir	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/configure.in.includedir	2014-09-09 16:25:04.000000000 -0300
+@@ -1071,7 +1071,7 @@
+ fi
+ 
+ PHP_ARG_WITH(pear, [whether to install PEAR],
+-[  --with-pear=DIR         Install PEAR in DIR @<:@PREFIX/lib/php@:>@
++[  --with-pear=DIR         Install PEAR in DIR @<:@PREFIX/lib/php56@:>@
+   --without-pear          Do not install PEAR], DEFAULT, yes)
+ 
+ if test "$PHP_PEAR" != "no"; then
+@@ -1101,7 +1101,7 @@
+   if test "$PHP_PEAR" = "DEFAULT" || test "$PHP_PEAR" = "yes"; then
+     case $PHP_LAYOUT in
+       GNU) PEAR_INSTALLDIR=$datadir/pear;;
+-      *)   PEAR_INSTALLDIR=$libdir/php;;
++      *)   PEAR_INSTALLDIR=$libdir/php56;;
+     esac
+   fi
+ 
+@@ -1156,12 +1156,12 @@
+ 
+ case $libdir in
+   '${exec_prefix}/lib')
+-    libdir=$libdir/php
++    libdir=$libdir
+     ;;
+ esac
+ case $datadir in
+   '${prefix}/share')
+-    datadir=$datadir/php
++    datadir=$datadir
+     ;;
+ esac
+ 
+@@ -1212,7 +1212,7 @@
+     datarootdir=$prefix/share
+     ;;
+   *)
+-    datarootdir=$prefix/php
++    datarootdir=$prefix/share/php56
+     ;;
+ esac
+ 
+diff -urN php-5.6.0.orig/ext/fileinfo/tests/magic php-5.6.0/ext/fileinfo/tests/magic
+--- php-5.6.0.orig/ext/fileinfo/tests/magic	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/ext/fileinfo/tests/magic	2014-09-09 16:25:04.000000000 -0300
+@@ -4140,7 +4140,7 @@
+ 0	search/1/w	#!\ /usr/local/bin/php	PHP script text executable
+ !:strength + 10
+ !:mime	text/x-php
+-0	search/1/w	#!\ /usr/bin/php	PHP script text executable
++0	search/1/w	#!\ /usr/bin/php56	PHP script text executable
+ !:strength + 10
+ !:mime	text/x-php
+ # Smarty compiled template, http://www.smarty.net/
+diff -urN php-5.6.0.orig/ext/pdo/Makefile.frag php-5.6.0/ext/pdo/Makefile.frag
+--- php-5.6.0.orig/ext/pdo/Makefile.frag	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/ext/pdo/Makefile.frag	2014-09-09 16:25:04.000000000 -0300
+@@ -1,4 +1,4 @@
+-phpincludedir=$(prefix)/include/php
++phpincludedir=$(prefix)/include/php56
+ 
+ PDO_HEADER_FILES= \
+ 	php_pdo.h \
+diff -urN php-5.6.0.orig/ext/phar/build_precommand.php php-5.6.0/ext/phar/build_precommand.php
+--- php-5.6.0.orig/ext/phar/build_precommand.php	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/ext/phar/build_precommand.php	2014-09-09 16:25:04.000000000 -0300
+@@ -1,4 +1,4 @@
+-#!/usr/bin/php
++#!/usr/bin/php56
+ <?php echo '<'.'?php';?>
+ 
+ /** @file phar.php
+diff -urN php-5.6.0.orig/ext/phar/phar/pharcommand.inc php-5.6.0/ext/phar/phar/pharcommand.inc
+--- php-5.6.0.orig/ext/phar/phar/pharcommand.inc	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/ext/phar/phar/pharcommand.inc	2014-09-09 16:25:04.000000000 -0300
+@@ -65,7 +65,7 @@
+ 			'b' => array(
+ 				'typ' => 'any',
+ 				'val' => NULL,
+-				'inf' => '<bang>   Hash-bang line to start the archive (e.g. #!/usr/bin/php). The hash '
++				'inf' => '<bang>   Hash-bang line to start the archive (e.g. #!/usr/bin/php56). The hash '
+ 						 .'         mark itself \'#!\' and the newline character are optional.'
+ 			),
+ 			'c' => array(
+diff -urN php-5.6.0.orig/ext/phar/phar.1.in php-5.6.0/ext/phar/phar.1.in
+--- php-5.6.0.orig/ext/phar/phar.1.in	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/ext/phar/phar.1.in	2014-09-09 16:25:04.000000000 -0300
+@@ -275,7 +275,7 @@
+ .TP
+ .PD
+ .B \-b \fIbang\fP
+-Hash-bang line to start the archive (e.g. #!/usr/bin/php).
++Hash-bang line to start the archive (e.g. #!/usr/bin/php56).
+ The hash mark itself '#!' and the newline character are optional.
+ .TP
+ .PD
+@@ -377,7 +377,7 @@
+ .TP 15
+ .PD
+ .B \-b \fIbang\fP
+-Hash-bang line to start the archive (e.g. #!/usr/bin/php).
++Hash-bang line to start the archive (e.g. #!/usr/bin/php56).
+ The hash mark itself '#!' and the newline character are optional.
+ .TP
+ .PD
+diff -urN php-5.6.0.orig/ext/session/session.c php-5.6.0/ext/session/session.c
+--- php-5.6.0.orig/ext/session/session.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/ext/session/session.c	2014-09-09 16:25:04.000000000 -0300
+@@ -803,7 +803,7 @@
+ /* {{{ PHP_INI
+  */
+ PHP_INI_BEGIN()
+-	STD_PHP_INI_ENTRY("session.save_path",          "",          PHP_INI_ALL, OnUpdateSaveDir,save_path,          php_ps_globals,    ps_globals)
++	STD_PHP_INI_ENTRY("session.save_path",          "/var/lib/php56/session",          PHP_INI_ALL, OnUpdateSaveDir,save_path,          php_ps_globals,    ps_globals)
+ 	STD_PHP_INI_ENTRY("session.name",               "PHPSESSID", PHP_INI_ALL, OnUpdateName, session_name,       php_ps_globals,    ps_globals)
+ 	PHP_INI_ENTRY("session.save_handler",           "files",     PHP_INI_ALL, OnUpdateSaveHandler)
+ 	STD_PHP_INI_BOOLEAN("session.auto_start",       "0",         PHP_INI_PERDIR, OnUpdateBool,   auto_start,         php_ps_globals,    ps_globals)
+diff -urN php-5.6.0.orig/INSTALL php-5.6.0/INSTALL
+--- php-5.6.0.orig/INSTALL	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/INSTALL	2014-09-09 16:25:04.000000000 -0300
+@@ -223,7 +223,7 @@
+     module on your system.  The make install from above may have already
+     added this for you, but be sure to check.
+ 
+-      LoadModule php5_module libexec/libphp5.so
++      LoadModule php56_module libexec/libphp56.so
+ 
+ 15. And in the AddModule section of httpd.conf, somewhere under the
+     ClearModuleList, add this:
+@@ -450,7 +450,7 @@
+        hand side of the LoadModule statement must point to the path of the
+        PHP  module  on  your  system. The make install from above may have
+        already added this for you, but be sure to check.
+-LoadModule php5_module modules/libphp5.so
++LoadModule php56_module modules/libphp56.so
+     8. Tell  Apache to parse certain extensions as PHP. For example, let's
+        have  Apache  parse  .php  files  as PHP. Instead of only using the
+        Apache  AddType  directive,  we want to avoid potentially dangerous
+@@ -1137,7 +1137,7 @@
+     2. With  a  text  editor, uncomment the lines (by removing the #) that
+        look  similar  to  the  following  (these  two  lines are often not
+        together, locate them both in the file):
+-# LoadModule php5_module libexec/httpd/libphp5.so
++# LoadModule php56_module libexec/httpd/libphp56.so
+ 
+ # AddModule mod_php5.c
+ 
+@@ -1193,7 +1193,7 @@
+        http://localhost/~yourusername/info.php
+ 
+    The  CLI  (or  CGI  in  older  versions) is appropriately named php and
+-   likely  exists  as /usr/bin/php. Open up the terminal, read the command
++   likely  exists  as /usr/bin/php56. Open up the terminal, read the command
+    line  section  of  the  PHP manual, and execute php -v to check the PHP
+    version  of  this PHP binary. A call to phpinfo() will also reveal this
+    information.
+@@ -1912,7 +1912,7 @@
+ 
+ # Extra Modules
+ LoadModule php_module         modules/mod_php.so
+-LoadModule php5_module        modules/libphp5.so
++LoadModule php56_module        modules/libphp56.so
+ LoadModule perl_module        modules/libperl.so
+ 
+           And add:
+diff -urN php-5.6.0.orig/NEWS php-5.6.0/NEWS
+--- php-5.6.0.orig/NEWS	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/NEWS	2014-09-09 16:25:04.000000000 -0300
+@@ -7387,7 +7387,7 @@
+ - Updated bundled libcURL to version 7.16.0 in the Windows distro. (Edin)
+ - Updated timezone database to version 2006.16. (Derick)
+ - cgi.* and fastcgi.* directives are moved to INI subsystem. The new directive
+-  cgi.check_shebang_line can be used to omitting check for "#! /usr/bin/php"
++  cgi.check_shebang_line can be used to omitting check for "#! /usr/bin/php56"
+   line. (Dmitry).
+ - Improved proc_open(). Now on Windows it can run external commands not
+   through CMD.EXE. (Dmitry)
+diff -urN php-5.6.0.orig/pear/Makefile.frag php-5.6.0/pear/Makefile.frag
+--- php-5.6.0.orig/pear/Makefile.frag	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/pear/Makefile.frag	2014-09-09 16:25:04.000000000 -0300
+@@ -11,7 +11,7 @@
+ PEAR_SUFFIX = -ds a$(program_suffix)
+ 
+ install-pear-installer: $(SAPI_CLI_PATH)
+-	@$(top_builddir)/sapi/cli/php $(PEAR_INSTALL_FLAGS) pear/install-pear-nozlib.phar -d "$(peardir)" -b "$(bindir)" ${PEAR_PREFIX} ${PEAR_SUFFIX}
++	@$(top_builddir)/sapi/cli/php56 $(PEAR_INSTALL_FLAGS) pear/install-pear-nozlib.phar -d "$(peardir)" -b "$(bindir)" ${PEAR_PREFIX} ${PEAR_SUFFIX}
+ 
+ install-pear:
+ 	@echo "Installing PEAR environment:      $(INSTALL_ROOT)$(peardir)/"
+@@ -24,7 +24,7 @@
+ 			elif test ! -z "$(FETCH)" && test -x "$(FETCH)"; then \
+ 				"$(FETCH)" -o $(builddir)/ http://pear.php.net/install-pear-nozlib.phar; \
+ 			else \
+-				$(top_builddir)/sapi/cli/php -n $(srcdir)/fetch.php http://pear.php.net/install-pear-nozlib.phar $(builddir)/install-pear-nozlib.phar; \
++				$(top_builddir)/sapi/cli/php56 -n $(srcdir)/fetch.php http://pear.php.net/install-pear-nozlib.phar $(builddir)/install-pear-nozlib.phar; \
+ 			fi \
+ 		fi \
+ 	fi
+diff -urN php-5.6.0.orig/run-tests.php php-5.6.0/run-tests.php
+--- php-5.6.0.orig/run-tests.php	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/run-tests.php	2014-09-09 16:25:04.000000000 -0300
+@@ -147,11 +147,11 @@
+ 	$php = getenv('TEST_PHP_EXECUTABLE');
+ 
+ 	if ($php=='auto') {
+-		$php = $cwd . '/sapi/cli/php';
++		$php = $cwd . '/sapi/cli/php56';
+ 		putenv("TEST_PHP_EXECUTABLE=$php");
+ 
+ 		if (!getenv('TEST_PHP_CGI_EXECUTABLE')) {
+-			$php_cgi = $cwd . '/sapi/cgi/php-cgi';
++			$php_cgi = $cwd . '/sapi/cgi/php56-cgi';
+ 
+ 			if (file_exists($php_cgi)) {
+ 				putenv("TEST_PHP_CGI_EXECUTABLE=$php_cgi");
+@@ -167,7 +167,7 @@
+ 	$php_cgi = getenv('TEST_PHP_CGI_EXECUTABLE');
+ 
+ 	if ($php_cgi=='auto') {
+-		$php_cgi = $cwd . '/sapi/cgi/php-cgi';
++		$php_cgi = $cwd . '/sapi/cgi/php56-cgi';
+ 		putenv("TEST_PHP_CGI_EXECUTABLE=$php_cgi");
+ 	}
+ 
+diff -urN php-5.6.0.orig/sapi/apache/libphp5.module.in php-5.6.0/sapi/apache/libphp5.module.in
+--- php-5.6.0.orig/sapi/apache/libphp5.module.in	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache/libphp5.module.in	2014-09-09 16:25:04.000000000 -0300
+@@ -1,4 +1,4 @@
+-Name: php5_module
++Name: php56_module
+ ConfigStart
+ 	RULE_WANTHSREGEX=no
+ 	RULE_HIDE=yes
+diff -urN php-5.6.0.orig/sapi/apache/mod_php5.c php-5.6.0/sapi/apache/mod_php5.c
+--- php-5.6.0.orig/sapi/apache/mod_php5.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache/mod_php5.c	2014-09-09 16:25:04.000000000 -0300
+@@ -65,7 +65,7 @@
+ #define IGNORE_URL 2
+ #define MAX_STATUS_LENGTH sizeof("xxxx LONGEST POSSIBLE STATUS DESCRIPTION")
+ 
+-module MODULE_VAR_EXPORT php5_module;
++module MODULE_VAR_EXPORT php56_module;
+ 
+ int saved_umask;
+ static unsigned char apache_php_initialized;
+@@ -620,7 +620,7 @@
+ 			return DECLINED;
+ 		}
+ 
+-		per_dir_conf = (HashTable *) get_module_config(r->per_dir_config, &php5_module);
++		per_dir_conf = (HashTable *) get_module_config(r->per_dir_config, &php56_module);
+ 		if (per_dir_conf) {
+ 			zend_hash_apply((HashTable *) per_dir_conf, (apply_func_t) php_apache_alter_ini_entries TSRMLS_CC);
+ 		}
+@@ -899,7 +899,7 @@
+ 	if (!(r->finfo.st_mode & S_IXUSR)) {
+ 		return DECLINED;
+ 	}
+-	per_dir_conf = (HashTable *) get_module_config(r->per_dir_config, &php5_module);
++	per_dir_conf = (HashTable *) get_module_config(r->per_dir_config, &php56_module);
+ 	if (per_dir_conf) {
+ 		zend_hash_apply((HashTable *) per_dir_conf, (apply_func_t) php_apache_alter_ini_entries TSRMLS_CC);
+ 	}
+@@ -996,9 +996,9 @@
+ };
+ /* }}} */
+ 
+-/* {{{ odule MODULE_VAR_EXPORT php5_module
++/* {{{ odule MODULE_VAR_EXPORT php56_module
+  */
+-module MODULE_VAR_EXPORT php5_module =
++module MODULE_VAR_EXPORT php56_module =
+ {
+ 	STANDARD_MODULE_STUFF,
+ 	php_init_handler,			/* initializer */
+diff -urN php-5.6.0.orig/sapi/apache/mod_php5.exp php-5.6.0/sapi/apache/mod_php5.exp
+--- php-5.6.0.orig/sapi/apache/mod_php5.exp	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache/mod_php5.exp	2014-09-09 16:25:04.000000000 -0300
+@@ -1 +1 @@
+-php5_module
++php56_module
+diff -urN php-5.6.0.orig/sapi/apache/php.sym php-5.6.0/sapi/apache/php.sym
+--- php-5.6.0.orig/sapi/apache/php.sym	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache/php.sym	2014-09-09 16:25:04.000000000 -0300
+@@ -1 +1 @@
+-php5_module
++php56_module
+diff -urN php-5.6.0.orig/sapi/apache2filter/php_apache.h php-5.6.0/sapi/apache2filter/php_apache.h
+--- php-5.6.0.orig/sapi/apache2filter/php_apache.h	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache2filter/php_apache.h	2014-09-09 16:25:04.000000000 -0300
+@@ -26,7 +26,7 @@
+ #include "http_core.h"
+ 
+ /* Declare this so we can get to it from outside the sapi_apache2.c file */
+-extern module AP_MODULE_DECLARE_DATA php5_module;
++extern module AP_MODULE_DECLARE_DATA php56_module;
+ 
+ /* A way to specify the location of the php.ini dir in an apache directive */
+ extern char *apache2_php_ini_path_override;
+diff -urN php-5.6.0.orig/sapi/apache2filter/php.sym php-5.6.0/sapi/apache2filter/php.sym
+--- php-5.6.0.orig/sapi/apache2filter/php.sym	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache2filter/php.sym	2014-09-09 16:25:04.000000000 -0300
+@@ -1 +1 @@
+-php5_module
++php56_module
+diff -urN php-5.6.0.orig/sapi/apache2filter/sapi_apache2.c php-5.6.0/sapi/apache2filter/sapi_apache2.c
+--- php-5.6.0.orig/sapi/apache2filter/sapi_apache2.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache2filter/sapi_apache2.c	2014-09-09 16:25:04.000000000 -0300
+@@ -457,7 +457,7 @@
+ static int php_output_filter(ap_filter_t *f, apr_bucket_brigade *bb)
+ {
+ 	php_struct *ctx;
+-	void *conf = ap_get_module_config(f->r->per_dir_config, &php5_module);
++	void *conf = ap_get_module_config(f->r->per_dir_config, &php56_module);
+ 	char *p = get_php_config(conf, "engine", sizeof("engine"));
+ 	zend_file_handle zfd;
+ 	php_apr_bucket_brigade *pbb;
+@@ -741,7 +741,7 @@
+ 	return 0;
+ }
+ 
+-AP_MODULE_DECLARE_DATA module php5_module = {
++AP_MODULE_DECLARE_DATA module php56_module = {
+ 	STANDARD20_MODULE_STUFF,
+ 	create_php_config,		/* create per-directory config structure */
+ 	merge_php_config,		/* merge per-directory config structures */
+diff -urN php-5.6.0.orig/sapi/apache2handler/mod_php5.c php-5.6.0/sapi/apache2handler/mod_php5.c
+--- php-5.6.0.orig/sapi/apache2handler/mod_php5.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache2handler/mod_php5.c	2014-09-09 16:25:04.000000000 -0300
+@@ -25,7 +25,7 @@
+ #include "php.h"
+ #include "php_apache.h"
+ 
+-AP_MODULE_DECLARE_DATA module php5_module = {
++AP_MODULE_DECLARE_DATA module php56_module = {
+ 	STANDARD20_MODULE_STUFF,
+ 	create_php_config,		/* create per-directory config structure */
+ 	merge_php_config,		/* merge per-directory config structures */
+diff -urN php-5.6.0.orig/sapi/apache2handler/php_apache.h php-5.6.0/sapi/apache2handler/php_apache.h
+--- php-5.6.0.orig/sapi/apache2handler/php_apache.h	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache2handler/php_apache.h	2014-09-09 16:25:04.000000000 -0300
+@@ -26,7 +26,7 @@
+ #include "http_core.h"
+ 
+ /* Declare this so we can get to it from outside the sapi_apache2.c file */
+-extern module AP_MODULE_DECLARE_DATA php5_module;
++extern module AP_MODULE_DECLARE_DATA php56_module;
+ 
+ /* A way to specify the location of the php.ini dir in an apache directive */
+ extern char *apache2_php_ini_path_override;
+diff -urN php-5.6.0.orig/sapi/apache2handler/php.sym php-5.6.0/sapi/apache2handler/php.sym
+--- php-5.6.0.orig/sapi/apache2handler/php.sym	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache2handler/php.sym	2014-09-09 16:25:04.000000000 -0300
+@@ -1 +1 @@
+-php5_module
++php56_module
+diff -urN php-5.6.0.orig/sapi/apache2handler/sapi_apache2.c php-5.6.0/sapi/apache2handler/sapi_apache2.c
+--- php-5.6.0.orig/sapi/apache2handler/sapi_apache2.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache2handler/sapi_apache2.c	2014-09-09 16:25:04.000000000 -0300
+@@ -517,7 +517,7 @@
+ } php_conf_rec;
+ 		char *str;
+ 		uint str_len;
+-		php_conf_rec *c = ap_get_module_config(r->per_dir_config, &php5_module);
++		php_conf_rec *c = ap_get_module_config(r->per_dir_config, &php56_module);
+ 
+ 		for (zend_hash_internal_pointer_reset(&c->config);
+ 			zend_hash_get_current_key_ex(&c->config, &str, &str_len, NULL, 0,  NULL) == HASH_KEY_IS_STRING;
+@@ -545,7 +545,7 @@
+ 
+ #define PHPAP_INI_OFF php_apache_ini_dtor(r, parent_req TSRMLS_CC);
+ 
+-	conf = ap_get_module_config(r->per_dir_config, &php5_module);
++	conf = ap_get_module_config(r->per_dir_config, &php56_module);
+ 
+ 	/* apply_config() needs r in some cases, so allocate server_context early */
+ 	ctx = SG(server_context);
+diff -urN php-5.6.0.orig/sapi/apache_hooks/libphp5.module.in php-5.6.0/sapi/apache_hooks/libphp5.module.in
+--- php-5.6.0.orig/sapi/apache_hooks/libphp5.module.in	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache_hooks/libphp5.module.in	2014-09-09 16:25:04.000000000 -0300
+@@ -1,4 +1,4 @@
+-Name: php5_module
++Name: php56_module
+ ConfigStart
+ 	RULE_WANTHSREGEX=no
+ 	RULE_HIDE=yes
+diff -urN php-5.6.0.orig/sapi/apache_hooks/mod_php5.c php-5.6.0/sapi/apache_hooks/mod_php5.c
+--- php-5.6.0.orig/sapi/apache_hooks/mod_php5.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache_hooks/mod_php5.c	2014-09-09 16:25:04.000000000 -0300
+@@ -88,7 +88,7 @@
+ #define USE_PATH 1
+ #define IGNORE_URL 2
+ 
+-module MODULE_VAR_EXPORT php5_module;
++module MODULE_VAR_EXPORT php56_module;
+ 
+ int saved_umask;
+ /* static int setup_env = 0; */
+@@ -667,7 +667,7 @@
+ 			return DECLINED;
+ 		}
+ 
+-		per_dir_conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++		per_dir_conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 		if (per_dir_conf) {
+ 			zend_hash_apply((HashTable *) per_dir_conf->ini_settings, (apply_func_t) php_apache_alter_ini_entries TSRMLS_CC);
+ 		}
+@@ -934,7 +934,7 @@
+ 	handler->type = handler_type;
+ 	handler->stage = handler_stage;
+ 	handler->name = strdup(arg1);
+-	conf = get_module_config(s->module_config, &php5_module);
++	conf = get_module_config(s->module_config, &php56_module);
+ 	switch(handler_stage) {
+ 		case AP_URI_TRANS:
+ 			sapi_stack_push(&conf->uri_handlers, handler);
+@@ -1184,7 +1184,7 @@
+ 		r->allowed |= (1 << METHODS) - 1;
+ 		return DECLINED;
+ 	}
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	if (conf) {
+ 		zend_hash_apply((HashTable *) conf->ini_settings, (apply_func_t) php_apache_alter_ini_entries TSRMLS_CC);
+ 	}
+@@ -1266,7 +1266,7 @@
+ 	TSRMLS_FETCH();
+ 
+ 	if(!AP(apache_config_loaded)) {
+-		conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++		conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 		if (conf)
+ 			   zend_hash_apply((HashTable *)conf->ini_settings, (apply_func_t) php_apache_alter_ini_entries TSRMLS_CC);
+ 		AP(apache_config_loaded) = 1;
+@@ -1298,7 +1298,7 @@
+ 	php_per_server_config *conf;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_URI_TRANS;
+-	conf = (php_per_server_config *) get_module_config(r->server->module_config, &php5_module);
++	conf = (php_per_server_config *) get_module_config(r->server->module_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_stop_if_equals(&conf->uri_handlers, 
+ 			ZEND_STACK_APPLY_BOTTOMUP, 
+ 			(int (*)(void *element, void *)) php_run_hook, r, OK);
+@@ -1309,7 +1309,7 @@
+ 	php_per_dir_config *conf;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_HEADER_PARSE;
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_stop_if_http_error(&conf->headers_handlers,
+ 			ZEND_STACK_APPLY_BOTTOMUP,
+ 			(int (*)(void *element, void *)) php_run_hook, r);
+@@ -1320,7 +1320,7 @@
+ 	php_per_dir_config *conf;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_AUTHENTICATION;
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_stop_if_equals(&conf->auth_handlers, 
+ 			ZEND_STACK_APPLY_BOTTOMUP, 
+ 			(int (*)(void *element, void *)) php_run_hook, r, OK);
+@@ -1332,7 +1332,7 @@
+ 	int status = DECLINED;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_ACCESS_CONTROL;
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	status =  sapi_stack_apply_with_argument_stop_if_http_error(&conf->access_handlers,
+ 			ZEND_STACK_APPLY_BOTTOMUP,
+ 			(int (*)(void *element, void *)) php_run_hook, r);
+@@ -1345,7 +1345,7 @@
+ 	php_per_dir_config *conf;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_TYPE_CHECKING;
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_stop_if_equals(&conf->type_handlers,
+ 			ZEND_STACK_APPLY_BOTTOMUP,
+ 			(int (*)(void *element, void *)) php_run_hook,
+@@ -1357,7 +1357,7 @@
+ 	php_per_dir_config *conf;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_FIXUP;
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_stop_if_http_error(&conf->fixup_handlers,
+ 			ZEND_STACK_APPLY_BOTTOMUP,
+ 			(int (*)(void *element, void *)) php_run_hook,
+@@ -1369,7 +1369,7 @@
+ 	php_per_dir_config *conf;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_LOGGING;
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_stop_if_http_error(&conf->logger_handlers,
+ 			ZEND_STACK_APPLY_BOTTOMUP,
+ 			(int (*)(void *element, void *)) php_run_hook,
+@@ -1382,11 +1382,11 @@
+ 	php_per_server_config *svr;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_POST_READ;
+-	svr = get_module_config(r->server->module_config, &php5_module);
++	svr = get_module_config(r->server->module_config, &php56_module);
+ 	if(ap_is_initial_req(r)) {
+ 		sapi_stack_apply_with_argument_all(&svr->requires, ZEND_STACK_APPLY_BOTTOMUP, (int (*)(void *element, void *)) php_run_hook, r);
+ 	}
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_stop_if_http_error(&conf->post_read_handlers,
+ 			ZEND_STACK_APPLY_BOTTOMUP,
+ 			(int (*)(void *element, void *)) php_run_hook, r);
+@@ -1397,7 +1397,7 @@
+ 	php_per_dir_config *conf;
+ 	TSRMLS_FETCH();
+ 	AP(current_hook) = AP_RESPONSE;
+-	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php5_module);
++	conf = (php_per_dir_config *) get_module_config(r->per_dir_config, &php56_module);
+ 	return sapi_stack_apply_with_argument_all(&conf->response_handlers, ZEND_STACK_APPLY_BOTTOMUP, (int (*)(void *element, void *)) php_run_hook, r);
+ }
+ 
+@@ -1449,9 +1449,9 @@
+ };
+ /* }}} */
+ 
+-/* {{{ module MODULE_VAR_EXPORT php5_module
++/* {{{ module MODULE_VAR_EXPORT php56_module
+  */
+-module MODULE_VAR_EXPORT php5_module =
++module MODULE_VAR_EXPORT php56_module =
+ {
+ 	STANDARD_MODULE_STUFF,
+ 	php_init_handler,			/* initializer */
+diff -urN php-5.6.0.orig/sapi/apache_hooks/mod_php5.exp php-5.6.0/sapi/apache_hooks/mod_php5.exp
+--- php-5.6.0.orig/sapi/apache_hooks/mod_php5.exp	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache_hooks/mod_php5.exp	2014-09-09 16:25:04.000000000 -0300
+@@ -1 +1 @@
+-php5_module
++php56_module
+diff -urN php-5.6.0.orig/sapi/apache_hooks/php.sym php-5.6.0/sapi/apache_hooks/php.sym
+--- php-5.6.0.orig/sapi/apache_hooks/php.sym	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/apache_hooks/php.sym	2014-09-09 16:25:04.000000000 -0300
+@@ -1 +1 @@
+-php5_module
++php56_module
+diff -urN php-5.6.0.orig/sapi/cgi/CHANGES php-5.6.0/sapi/cgi/CHANGES
+--- php-5.6.0.orig/sapi/cgi/CHANGES	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/cgi/CHANGES	2014-09-09 16:25:04.000000000 -0300
+@@ -27,7 +27,7 @@
+                             This option had effect only with
+                             --disable-path-info-check or "cgi.fix_pathinfo=0".
+                             Seems it needs only for CGI configuration that
+-                            require each script start from "#! /usr/bin/php".
++                            require each script start from "#! /usr/bin/php56".
+ 
+                             Now it is disabled by default, but can be enabled
+                             with ini directive "cgi.discard_path=1".
+diff -urN php-5.6.0.orig/sapi/cgi/README.FastCGI php-5.6.0/sapi/cgi/README.FastCGI
+--- php-5.6.0.orig/sapi/cgi/README.FastCGI	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/cgi/README.FastCGI	2014-09-09 16:25:04.000000000 -0300
+@@ -69,7 +69,7 @@
+ 
+ Don't load mod_php, by the way. Make sure it is commented out!
+ 
+-    #LoadModule php5_module /usr/lib/apache/2.0/libphp5.so
++    #LoadModule php56_module /usr/lib/apache/2.0/libphp56.so
+ 
+ Now, we'll create a fcgi-bin directory, just like you would do with normal
+ CGI scripts. You'll need to create a directory somewhere to store your
+diff -urN php-5.6.0.orig/sapi/cli/config.m4 php-5.6.0/sapi/cli/config.m4
+--- php-5.6.0.orig/sapi/cli/config.m4	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/cli/config.m4	2014-09-09 16:25:04.000000000 -0300
+@@ -28,7 +28,7 @@
+   PHP_ADD_MAKEFILE_FRAGMENT($abs_srcdir/sapi/cli/Makefile.frag)
+ 
+   dnl Set filename
+-  SAPI_CLI_PATH=sapi/cli/php
++  SAPI_CLI_PATH=sapi/cli/php56
+ 
+   dnl Select SAPI
+   PHP_SELECT_SAPI(cli, program, php_cli.c php_http_parser.c php_cli_server.c ps_title.c php_cli_process_title.c,, '$(SAPI_CLI_PATH)')
+diff -urN php-5.6.0.orig/sapi/fpm/fpm/fpm_conf.c php-5.6.0/sapi/fpm/fpm/fpm_conf.c
+--- php-5.6.0.orig/sapi/fpm/fpm/fpm_conf.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/fpm/fpm/fpm_conf.c	2014-09-09 16:25:04.000000000 -0300
+@@ -1171,7 +1171,7 @@
+ 	}
+ 
+ 	if (!fpm_global_config.error_log) {
+-		fpm_global_config.error_log = strdup("log/php-fpm.log");
++		fpm_global_config.error_log = strdup("log/php56-fpm/php56-fpm.log");
+ 	}
+ 
+ #ifdef HAVE_SYSTEMD
+@@ -1182,7 +1182,7 @@
+ 
+ #ifdef HAVE_SYSLOG_H
+ 	if (!fpm_global_config.syslog_ident) {
+-		fpm_global_config.syslog_ident = strdup("php-fpm");
++		fpm_global_config.syslog_ident = strdup("php56-fpm");
+ 	}
+ 
+ 	if (fpm_global_config.syslog_facility < 0) {
+@@ -1650,9 +1650,9 @@
+ 		char *tmp;
+ 
+ 		if (fpm_globals.prefix == NULL) {
+-			spprintf(&tmp, 0, "%s/php-fpm.conf", PHP_SYSCONFDIR);
++			spprintf(&tmp, 0, "%s/php56-fpm.conf", PHP_SYSCONFDIR);
+ 		} else {
+-			spprintf(&tmp, 0, "%s/etc/php-fpm.conf", fpm_globals.prefix);
++			spprintf(&tmp, 0, "%s/etc/php56-fpm.conf", fpm_globals.prefix);
+ 		}
+ 
+ 		if (!tmp) {
+diff -urN php-5.6.0.orig/sapi/fpm/fpm/fpm_env.h php-5.6.0/sapi/fpm/fpm/fpm_env.h
+--- php-5.6.0.orig/sapi/fpm/fpm/fpm_env.h	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/fpm/fpm/fpm_env.h	2014-09-09 16:25:04.000000000 -0300
+@@ -7,7 +7,7 @@
+ 
+ #include "fpm_worker_pool.h"
+ 
+-#define SETPROCTITLE_PREFIX "php-fpm: "
++#define SETPROCTITLE_PREFIX "php56-fpm: "
+ 
+ int fpm_env_init_child(struct fpm_worker_pool_s *wp);
+ int fpm_env_init_main();
+diff -urN php-5.6.0.orig/sapi/fpm/fpm/fpm_main.c php-5.6.0/sapi/fpm/fpm/fpm_main.c
+--- php-5.6.0.orig/sapi/fpm/fpm/fpm_main.c	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/fpm/fpm/fpm_main.c	2014-09-09 16:25:04.000000000 -0300
+@@ -1042,9 +1042,9 @@
+ 
+   PATH_INFO=/info.php/test
+   PATH_TRANSLATED=/docroot/info.php/test
+-  SCRIPT_NAME=/php/php-cgi  (from the Action setting I suppose)
++  SCRIPT_NAME=/php/php56-cgi  (from the Action setting I suppose)
+   REQUEST_URI=/info.php/test?a=b
+-  SCRIPT_FILENAME=/path/to/php/bin/php-cgi  (Action setting translated)
++  SCRIPT_FILENAME=/path/to/php/bin/php56-cgi  (Action setting translated)
+   QUERY_STRING=a=b
+ 
+   Comments in the code below refer to using the above URL in a request
+@@ -1509,7 +1509,7 @@
+ static PHP_MINFO_FUNCTION(cgi)
+ {
+ 	php_info_print_table_start();
+-	php_info_print_table_row(2, "php-fpm", "active");
++	php_info_print_table_row(2, "php56-fpm", "active");
+ 	php_info_print_table_end();
+ 
+ 	DISPLAY_INI_ENTRIES();
+diff -urN php-5.6.0.orig/sapi/fpm/init.d.php-fpm.in php-5.6.0/sapi/fpm/init.d.php-fpm.in
+--- php-5.6.0.orig/sapi/fpm/init.d.php-fpm.in	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/fpm/init.d.php-fpm.in	2014-09-09 16:25:04.000000000 -0300
+@@ -1,21 +1,21 @@
+ #! /bin/sh
+ 
+ ### BEGIN INIT INFO
+-# Provides:          php-fpm
++# Provides:          php56-fpm
+ # Required-Start:    $remote_fs $network
+ # Required-Stop:     $remote_fs $network
+ # Default-Start:     2 3 4 5
+ # Default-Stop:      0 1 6
+-# Short-Description: starts php-fpm
++# Short-Description: starts php56-fpm
+ # Description:       starts the PHP FastCGI Process Manager daemon
+ ### END INIT INFO
+ 
+ prefix=@prefix@
+ exec_prefix=@exec_prefix@
+ 
+-php_fpm_BIN=@sbindir@/php-fpm
+-php_fpm_CONF=@sysconfdir@/php-fpm.conf
+-php_fpm_PID=@localstatedir@/run/php-fpm.pid
++php_fpm_BIN=@sbindir@/php56-fpm
++php_fpm_CONF=@sysconfdir@/php56-fpm.conf
++php_fpm_PID=@localstatedir@/run/php56-fpm/php56-fpm.pid
+ 
+ 
+ php_opts="--fpm-config $php_fpm_CONF --pid $php_fpm_PID"
+@@ -52,7 +52,7 @@
+ 
+ case "$1" in
+ 	start)
+-		echo -n "Starting php-fpm "
++		echo -n "Starting php56-fpm "
+ 
+ 		$php_fpm_BIN --daemonize $php_opts
+ 
+@@ -72,10 +72,10 @@
+ 	;;
+ 
+ 	stop)
+-		echo -n "Gracefully shutting down php-fpm "
++		echo -n "Gracefully shutting down php56-fpm "
+ 
+ 		if [ ! -r $php_fpm_PID ] ; then
+-			echo "warning, no pid file found - php-fpm is not running ?"
++			echo "warning, no pid file found - php56-fpm is not running ?"
+ 			exit 1
+ 		fi
+ 
+@@ -93,23 +93,23 @@
+ 
+ 	status)
+ 		if [ ! -r $php_fpm_PID ] ; then
+-			echo "php-fpm is stopped"
++			echo "php56-fpm is stopped"
+ 			exit 0
+ 		fi
+ 
+ 		PID=`cat $php_fpm_PID`
+ 		if ps -p $PID | grep -q $PID; then
+-			echo "php-fpm (pid $PID) is running..."
++			echo "php56-fpm (pid $PID) is running..."
+ 		else
+-			echo "php-fpm dead but pid file exists"
++			echo "php56-fpm dead but pid file exists"
+ 		fi
+ 	;;
+ 
+ 	force-quit)
+-		echo -n "Terminating php-fpm "
++		echo -n "Terminating php56-fpm "
+ 
+ 		if [ ! -r $php_fpm_PID ] ; then
+-			echo "warning, no pid file found - php-fpm is not running ?"
++			echo "warning, no pid file found - php56-fpm is not running ?"
+ 			exit 1
+ 		fi
+ 
+@@ -132,10 +132,10 @@
+ 
+ 	reload)
+ 
+-		echo -n "Reload service php-fpm "
++		echo -n "Reload service php56-fpm "
+ 
+ 		if [ ! -r $php_fpm_PID ] ; then
+-			echo "warning, no pid file found - php-fpm is not running ?"
++			echo "warning, no pid file found - php56-fpm is not running ?"
+ 			exit 1
+ 		fi
+ 
+diff -urN php-5.6.0.orig/sapi/fpm/Makefile.frag php-5.6.0/sapi/fpm/Makefile.frag
+--- php-5.6.0.orig/sapi/fpm/Makefile.frag	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/fpm/Makefile.frag	2014-09-09 16:25:04.000000000 -0300
+@@ -8,16 +8,16 @@
+ 	@$(mkinstalldirs) $(INSTALL_ROOT)$(sbindir)
+ 	@$(mkinstalldirs) $(INSTALL_ROOT)$(localstatedir)/log
+ 	@$(mkinstalldirs) $(INSTALL_ROOT)$(localstatedir)/run
+-	@$(INSTALL) -m 0755 $(SAPI_FPM_PATH) $(INSTALL_ROOT)$(sbindir)/$(program_prefix)php-fpm$(program_suffix)$(EXEEXT)
++	@$(INSTALL) -m 0755 $(SAPI_FPM_PATH) $(INSTALL_ROOT)$(sbindir)/$(program_prefix)php56-fpm$(program_suffix)$(EXEEXT)
+ 
+ 	@echo "Installing PHP FPM config:        $(INSTALL_ROOT)$(sysconfdir)/" && \
+ 	$(mkinstalldirs) $(INSTALL_ROOT)$(sysconfdir) || :
+-	@$(INSTALL_DATA) sapi/fpm/php-fpm.conf $(INSTALL_ROOT)$(sysconfdir)/php-fpm.conf.default || :
++	@$(INSTALL_DATA) sapi/fpm/php-fpm.conf $(INSTALL_ROOT)$(sysconfdir)/php56-fpm.conf.default || :
+ 
+ 	@echo "Installing PHP FPM man page:      $(INSTALL_ROOT)$(mandir)/man8/"
+ 	@$(mkinstalldirs) $(INSTALL_ROOT)$(mandir)/man8
+-	@$(INSTALL_DATA) sapi/fpm/php-fpm.8 $(INSTALL_ROOT)$(mandir)/man8/php-fpm$(program_suffix).8
++	@$(INSTALL_DATA) sapi/fpm/php-fpm.8 $(INSTALL_ROOT)$(mandir)/man8/php56-fpm$(program_suffix).8
+ 
+-	@echo "Installing PHP FPM status page:      $(INSTALL_ROOT)$(datadir)/fpm/"
+-	@$(mkinstalldirs) $(INSTALL_ROOT)$(datadir)/fpm
+-	@$(INSTALL_DATA) sapi/fpm/status.html $(INSTALL_ROOT)$(datadir)/fpm/status.html
++	@echo "Installing PHP FPM status page:      $(INSTALL_ROOT)$(datadir)/php56-fpm/"
++	@$(mkinstalldirs) $(INSTALL_ROOT)$(datadir)/php56-fpm
++	@$(INSTALL_DATA) sapi/fpm/status.html $(INSTALL_ROOT)$(datadir)/php56-fpm/status.html
+diff -urN php-5.6.0.orig/sapi/fpm/php-fpm.conf.in php-5.6.0/sapi/fpm/php-fpm.conf.in
+--- php-5.6.0.orig/sapi/fpm/php-fpm.conf.in	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/sapi/fpm/php-fpm.conf.in	2014-09-09 16:25:04.000000000 -0300
+@@ -22,14 +22,14 @@
+ ; Pid file
+ ; Note: the default prefix is @EXPANDED_LOCALSTATEDIR@
+ ; Default Value: none
+-;pid = run/php-fpm.pid
++;pid = run/php56-fpm/php56-fpm.pid
+ 
+ ; Error log file
+ ; If it's set to "syslog", log is sent to syslogd instead of being written
+ ; in a local file.
+ ; Note: the default prefix is @EXPANDED_LOCALSTATEDIR@
+-; Default Value: log/php-fpm.log
+-;error_log = log/php-fpm.log
++; Default Value: log/php56-fpm/php56-fpm.log
++;error_log = log/php56-fpm/php56-fpm.log
+ 
+ ; syslog_facility is used to specify what type of program is logging the
+ ; message. This lets syslogd specify that messages from different facilities
+@@ -41,8 +41,8 @@
+ ; syslog_ident is prepended to every message. If you have multiple FPM
+ ; instances running on the same server, you can change the default value
+ ; which must suit common needs.
+-; Default Value: php-fpm
+-;syslog.ident = php-fpm
++; Default Value: php56-fpm
++;syslog.ident = php56-fpm
+ 
+ ; Log level
+ ; Possible Values: alert, error, warning, notice, debug
+@@ -341,7 +341,7 @@
+ ;   last request memory:  0
+ ;
+ ; Note: There is a real-time FPM status monitoring sample web page available
+-;       It's available in: @EXPANDED_DATADIR@/fpm/status.html
++;       It's available in: @EXPANDED_DATADIR@/php56-fpm/status.html
+ ;
+ ; Note: The value must start with a leading slash (/). The value can be
+ ;       anything, but it may not be a good idea to use the .php extension or it
+@@ -522,6 +522,6 @@
+ ;                specified at startup with the -d argument
+ ;php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f www@my.domain.com
+ ;php_flag[display_errors] = off
+-;php_admin_value[error_log] = /var/log/fpm-php.www.log
++;php_admin_value[error_log] = /var/log/php56-fpm/fpm-php.www.log
+ ;php_admin_flag[log_errors] = on
+ ;php_admin_value[memory_limit] = 32M
+diff -urN php-5.6.0.orig/scripts/Makefile.frag php-5.6.0/scripts/Makefile.frag
+--- php-5.6.0.orig/scripts/Makefile.frag	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/scripts/Makefile.frag	2014-09-09 16:25:04.000000000 -0300
+@@ -3,7 +3,7 @@
+ # Build environment install
+ #
+ 
+-phpincludedir = $(includedir)/php
++phpincludedir = $(includedir)
+ phpbuilddir = $(libdir)/build
+ 
+ BUILD_FILES = \
+diff -urN php-5.6.0.orig/scripts/phpize.in php-5.6.0/scripts/phpize.in
+--- php-5.6.0.orig/scripts/phpize.in	2014-09-09 16:22:40.000000000 -0300
++++ php-5.6.0/scripts/phpize.in	2014-09-09 16:25:04.000000000 -0300
+@@ -5,7 +5,7 @@
+ datarootdir='@datarootdir@'
+ exec_prefix="`eval echo @exec_prefix@`"
+ phpdir="`eval echo @libdir@`/build"
+-includedir="`eval echo @includedir@`/php"
++includedir="`eval echo @includedir@`"
+ builddir="`pwd`"
+ SED="@SED@"
+ 
+diff -urN php-5.6.0.orig/scripts/phpize.in.headers php-5.6.0/scripts/phpize.in.headers
+--- php-5.6.0.orig/scripts/phpize.in.headers	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/scripts/phpize.in.headers	2014-09-09 16:25:04.000000000 -0300
+@@ -5,7 +5,7 @@
+ datarootdir='@datarootdir@'
+ exec_prefix="`eval echo @exec_prefix@`"
+ phpdir="`eval echo @libdir@`/build"
+-includedir="`eval echo @includedir@`/php"
++includedir="`eval echo @includedir@`"
+ builddir="`pwd`"
+ SED="@SED@"
+ 
+diff -urN php-5.6.0.orig/scripts/phpize.m4 php-5.6.0/scripts/phpize.m4
+--- php-5.6.0.orig/scripts/phpize.m4	2014-08-27 10:31:35.000000000 -0300
++++ php-5.6.0/scripts/phpize.m4	2014-09-09 16:25:04.000000000 -0300
+@@ -38,6 +38,8 @@
+ PHP_ARG_WITH(php-config,,
+ [  --with-php-config=PATH  Path to php-config [php-config]], php-config, no)
+ 
++PHP_PHP_CONFIG=/usr/bin/php56-config
++
+ dnl For BC
+ PHP_CONFIG=$PHP_PHP_CONFIG
+ prefix=`$PHP_CONFIG --prefix 2>/dev/null`
